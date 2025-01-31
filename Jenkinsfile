@@ -3,7 +3,6 @@ pipeline {
 	tools {
 		maven 'maven 3.9.9'
 		jdk 'Java JDK 17'
-		sonarqube-scanner 'sonarqube-scanner'
 	}
 	stages {
 		stage("clean") {
