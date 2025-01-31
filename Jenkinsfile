@@ -3,6 +3,7 @@ pipeline {
 	tools {
 		maven 'maven 3.9.9'
 		jdk 'Java JDK 17'
+		sonar 'sonarqube-scanner'
 	}
 	stages {
 		stage("clean") {
@@ -51,7 +52,7 @@ pipeline {
                     writeFile file: 'sonar-project.properties', text: sonarProperties
 
                     // Run SonarQube scan using the properties file
-                    bat "sonar-scanner -Dproject.settings=sonar-project.properties"
+                    bat "sonar -Dproject.settings=sonar-project.properties"
                 }
             }
         }
