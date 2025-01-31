@@ -3,7 +3,6 @@ pipeline {
 	tools {
 		maven 'maven 3.9.9'
 		jdk 'Java JDK 17'
-		sonar 'sonarqube-scanner'
 	}
 	stages {
 		stage("clean") {
@@ -28,6 +27,8 @@ pipeline {
 		stage("sonar") {
             steps {
                 script {
+					def scannerHome = tool 'sonarqube-scanner'
+
                     // Prepare SonarQube environment
                     def sonarProperties = """
                         sonar.projectKey=maven-project-jenkins-lab2
@@ -52,7 +53,9 @@ pipeline {
                     writeFile file: 'sonar-project.properties', text: sonarProperties
 
                     // Run SonarQube scan using the properties file
-                    bat "sonar -Dproject.settings=sonar-project.properties"
+                    withSonarQubeEnv('sonarqube_server') {
+                    	bat "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+                	}
                 }
             }
         }
