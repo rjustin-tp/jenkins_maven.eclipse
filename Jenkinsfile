@@ -50,7 +50,7 @@ pipeline {
 
                     // Run SonarQube scan using the properties file
                     withSonarQubeEnv('sonarqube_server') {
-                    	bat "mvn sonar:sonar -Dsonar.projectKey=maven-project-jenkins-lab2"
+                    	bat "mvn sonar:sonar"
                 	}
                 }
             }
